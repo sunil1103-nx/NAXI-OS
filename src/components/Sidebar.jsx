@@ -4,7 +4,7 @@ export default function Sidebar() {
   return (
     <div
       style={{
-        width: "240px",
+        width: "260px",
         background: "#111827",
         color: "white",
         padding: "20px",
@@ -23,4 +23,16 @@ export default function Sidebar() {
       <NavLink to="/settings">⚙️ Settings</NavLink>
     </div>
   );
+  <NavLink
+  to="/dashboard"
+  style={({ isActive }) => ({
+    color: isActive ? "#60A5FA" : "white",
+    textDecoration: "none",
+    padding: "10px",
+    borderRadius: "8px",
+    background: isActive ? "#1e3a8a" : "transparent",
+  })}
+>
+  
+</NavLink>
 }

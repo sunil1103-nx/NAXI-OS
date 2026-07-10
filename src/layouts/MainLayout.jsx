@@ -1,4 +1,5 @@
 import Sidebar from "../components/Sidebar";
+import Container from "../components/ui/Container";
 
 export default function MainLayout({ children }) {
   return (
@@ -12,14 +13,14 @@ export default function MainLayout({ children }) {
     >
       <Sidebar />
 
-      <div
+      <main
         style={{
           flex: 1,
-          padding: "30px",
+          overflowY: "auto",
         }}
       >
-        {children}
-      </div>
+        <Container>{children}</Container>
+      </main>
     </div>
   );
 }
