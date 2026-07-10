@@ -1,24 +1,46 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-export default function JobForm({ onAdd }) {
+export default function JobForm({
+  onAdd,
+  editingJob,
+}) {
   const [company, setCompany] = useState("");
   const [position, setPosition] = useState("");
   const [status, setStatus] = useState("Applied");
 
+  useEffect(() => {
+    if (editingJob) {
+      setCompany(editingJob.company);
+      setPosition(editingJob.position);
+      setStatus(editingJob.status);
+    }
+  }, [editingJob]);
+
+  const inputStyle = {
+    background: "#1e293b",
+    border: "1px solid #334155",
+    color: "white",
+    padding: "12px",
+    borderRadius: "8px",
+    fontSize: "16px",
+    outline: "none",
+  };
+
   function handleSubmit(e) {
     e.preventDefault();
 
-    if (!company.trim() || !position.trim()) {
-      alert("Company and Position are required.");
-      return;
-    }
+    if (!company || !position) return;
 
     onAdd({
-      id: crypto.randomUUID(),
+      id: editingJob
+        ? editingJob.id
+        : crypto.randomUUID(),
       company,
       position,
       status,
-      appliedDate: new Date().toLocaleDateString(),
+      appliedDate: editingJob
+        ? editingJob.appliedDate
+        : new Date().toLocaleDateString(),
     });
 
     setCompany("");
@@ -32,24 +54,32 @@ export default function JobForm({ onAdd }) {
       style={{
         display: "grid",
         gap: "15px",
-        maxWidth: "500px",
       }}
     >
       <input
-        placeholder="Company Name"
+        style={inputStyle}
+        placeholder="Company"
         value={company}
-        onChange={(e) => setCompany(e.target.value)}
+        onChange={(e) =>
+          setCompany(e.target.value)
+        }
       />
 
       <input
+        style={inputStyle}
         placeholder="Position"
         value={position}
-        onChange={(e) => setPosition(e.target.value)}
+        onChange={(e) =>
+          setPosition(e.target.value)
+        }
       />
 
       <select
+        style={inputStyle}
         value={status}
-        onChange={(e) => setStatus(e.target.value)}
+        onChange={(e) =>
+          setStatus(e.target.value)
+        }
       >
         <option>Applied</option>
         <option>Interview</option>
@@ -57,8 +87,18 @@ export default function JobForm({ onAdd }) {
         <option>Rejected</option>
       </select>
 
-      <button type="submit">
-        + Add Job
+      <button
+        type="submit"
+        style={{
+          background: "#2563eb",
+          color: "white",
+          border: "none",
+          padding: "12px",
+          borderRadius: "8px",
+          cursor: "pointer",
+        }}
+      >
+        {editingJob ? "Update Job" : "+ Add Job"}
       </button>
     </form>
   );
