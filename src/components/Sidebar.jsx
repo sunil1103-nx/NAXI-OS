@@ -1,3 +1,5 @@
+import { NavLink } from "react-router-dom";
+
 export default function Sidebar() {
   return (
     <div
@@ -6,18 +8,19 @@ export default function Sidebar() {
         background: "#111827",
         color: "white",
         padding: "20px",
+        display: "flex",
+        flexDirection: "column",
+        gap: "12px",
       }}
     >
       <h2>🦅 NAXI OS</h2>
 
-      <hr />
-
-      <p>🏠 Dashboard</p>
-      <p>💼 Career</p>
-      <p>💰 Finance</p>
-      <p>📚 Skills</p>
-      <p>📖 Journal</p>
-      <p>⚙ Settings</p>
+      <NavLink to="/dashboard">🏠 Dashboard</NavLink>
+      <NavLink to="/career">💼 Career</NavLink>
+      <NavLink to="/finance">💰 Finance</NavLink>
+      <NavLink to="/skills">📚 Skills</NavLink>
+      <NavLink to="/journal">📖 Journal</NavLink>
+      <NavLink to="/settings">⚙️ Settings</NavLink>
     </div>
   );
 }
